@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yangiliklar Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🌍 Yangiliklar Markazi</h1>
+        
+        <div class="grid">
+            <!-- Chet el yangiliklari -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?w=800&h=500&fit=crop" alt="Chet el yangiliklari" class="card-image">
+                <div class="card-content">
+                    <h2 class="card-title">🌎 Chet El Yangiliklari</h2>
+                    <button class="news-button" onclick="searchNews('world news today')">
+                        So'nggi Yangiliklar
+                    </button>
+                    <div class="currency-section">
+                        <div class="currency-title">💵 Valyuta Kurslari</div>
+                        <div class="currency-grid">
+                            <div class="currency-item">
+                                <div class="currency-name">USD</div>
+                                <div class="currency-value" id="usd-rate">...</div>
+                            </div>
+                            <div class="currency-item">
+                                <div class="currency-name">EUR</div>
+                                <div class="currency-value" id="eur-rate">...</div>
+                            </div>
+                            <div class="currency-item">
+                                <div class="currency-name">GBP</div>
+                                <div class="currency-value" id="gbp-rate">...</div>
+                            </div>
+                        </div>
+                        <div class="loading" id="world-loading">Yuklanmoqda...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- O'zbekiston yangiliklari -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1587974928442-77dc3e0dba72?w=800&h=500&fit=crop" alt="O'zbekiston yangiliklari" class="card-image">
+                <div class="card-content">
+                    <h2 class="card-title">🇺🇿 O'zbekiston Yangiliklari</h2>
+                    <button class="news-button" onclick="searchNews('uzbekistan news today')">
+                        So'nggi Yangiliklar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Markaziy Osiyo yangiliklari -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&h=500&fit=crop" alt="Markaziy Osiyo yangiliklari" class="card-image">
+                <div class="card-content">
+                    <h2 class="card-title">🗺 Markaziy Osiyo Yangiliklari</h2>
+                    <button class="news-button" onclick="searchNews('central asia news today')">
+                        So'nggi Yangiliklar
+                    </button>
+                    <div class="currency-section">
+                        <div class="currency-title">💱 Valyuta Kurslari</div>
+                        <div class="currency-grid">
+                            <div class="currency-item">
+                                <div class="currency-name">KZT (Tenge)</div>
+                                <div class="currency-value" id="kzt-rate">...</div>
+                            </div>
+                            <div class="currency-item">
+                                <div class="currency-name">RUB (Rubl)</div>
+                                <div class="currency-value" id="rub-rate">...</div>
+                            </div>
+                        </div>
+                        <div class="loading" id="central-loading">Yuklanmoqda...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function searchNews(query) {
+            const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+            window.open(searchUrl, '_blank');
+        }
+
+        async function fetchExchangeRates() {
+            try {
+                // O'zbekiston Markaziy Banki API dan foydalanish
+                const response = await fetch('https://cbu.uz/oz/arkhiv-kursov-valyut/json/');
+                const data = await response.json();
+                
+                // Valyutalarni topish
+                const usd = data.find(item => item.Ccy === 'USD');
+                const eur = data.find(item => item.Ccy === 'EUR');
+                const gbp = data.find(item => item.Ccy === 'GBP');
+                const rub = data.find(item => item.Ccy === 'RUB');
+                const kzt = data.find(item => item.Ccy === 'KZT');
+                
+                // USD kursi
+                if (usd) {
+                    document.getElementById('usd-rate').textContent = parseFloat(usd.Rate).toFixed(2) + ' so\'m';
+                }
+                
+                // EUR kursi
+                if (eur) {
+                    document.getElementById('eur-rate').textContent = parseFloat(eur.Rate).toFixed(2) + ' so\'m';
+                }
+                
+                // GBP kursi
+                if (gbp) {
+                    document.getElementById('gbp-rate').textContent = parseFloat(gbp.Rate).toFixed(2) + ' so\'m';
+                }
+                
+                // Yuklanish matnini yashirish
+                document.getElementById('world-loading').style.display = 'none';
+                
+                // RUB kursi
+                if (rub) {
+                    document.getElementById('rub-rate').textContent = parseFloat(rub.Rate).toFixed(2) + ' so\'m';
+                }
+                
+                // KZT kursi (100 KZT uchun)
+                if (kzt) {
+                    const kztRate = parseFloat(kzt.Rate) / 100;
+                    document.getElementById('kzt-rate').textContent = kztRate.toFixed(2) + ' so\'m';
+                }
+                
+                document.getElementById('central-loading').style.display = 'none';
+                
+            } catch (error) {
+                console.error('Valyuta kurslarini yuklashda xatolik:', error);
+                document.getElementById('world-loading').textContent = 'Xatolik yuz berdi';
+                document.getElementById('central-loading').textContent = 'Xatolik yuz berdi';
+            }
+        }
+
+        // Sahifa yuklanganda valyuta kurslarini olish
+        fetchExchangeRates();
+        
+        // Har 5 daqiqada yangilash
+        setInterval(fetchExchangeRates, 300000);
+    </script>
+</body>
+</html>
