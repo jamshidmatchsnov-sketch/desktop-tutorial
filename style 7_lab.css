@@ -1,0 +1,69 @@
+/* Sahifa */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: #6bee67;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+/* Kartochka */
+.card {
+    width: 300px;
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+/* Hover - sichqoncha ustiga kelganda */
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Rasm */
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Sarlavha */
+.card h2 {
+    font-size: 20px;
+    color: #333;
+    margin: 15px 0 10px;
+}
+
+/* Narx */
+.price {
+    font-size: 24px;
+    color: #FF6B6B;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+/* Tugma */
+.buy-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Tugma hover */
+.buy-btn:hover {
+    background-color: #45a049;
+}
