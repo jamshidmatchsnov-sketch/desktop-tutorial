@@ -1,0 +1,95 @@
+/* GLOBAL USLUBLAR */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+.main-header {
+    text-align: center;
+    padding: 20px;
+    background-color: #007bff;
+    color: white;
+    margin-bottom: 20px;
+}
+
+/* KARTОCHKА KONTEYNERI (Flexbox yordamida) */
+.card-container {
+    display: flex;
+    flex-wrap: wrap; /* Kartochkalar sig'maganda pastga tushishi uchun */
+    justify-content: center; /* Kartochkalarni markazga joylashtirish */
+    gap: 20px; /* Kartochkalar orasidagi bo'shliq */
+    padding: 20px;
+}
+
+/* KARTОCHKА USLUBLARI */
+.card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 15px;
+    flex: 1 1 300px; /* Boshlang'ich kattalik va o'sish/kichrayish */
+    min-width: 280px; /* Minimal kenglik */
+    transition: transform 0.3s ease; /* Hover effekti uchun silliq o'tish */
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Sichqoncha ustiga borganda ko'tarilish effekti */
+}
+
+.card-title {
+    color: #007bff;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+.card-text {
+    line-height: 1.6;
+}
+
+/* ========================================================= */
+/* MEDIA QUERIES: RESPONSIVLIKNI TA'MINLASH */
+/* ========================================================= */
+
+/* 1. PLANSHECHKA (Tablet) O'LCHAMI UCHUN (Masalan, 768px dan boshlab) */
+/* Maqsad: 768px va undan katta ekranlarda 2ta kartochka yonma-yon tursin */
+@media (min-width: 768px) {
+    .card {
+        /*
+        flex: 1 1 45%; - Bu qoida kartochkalarga konteynerning deyarli yarmini
+        egallashga (2ta yonma-yon turishi uchun) imkon beradi, chunki 45% + 45% + bo'shliq = 100% dan kam
+        */
+        flex: 1 1 calc(50% - 30px);
+    }
+}
+
+/* 2. KATTA KOMPYUTER (Desktop) EKRANI UCHUN (Masalan, 1024px dan boshlab) */
+/* Maqsad: 1024px va undan katta ekranlarda 3ta kartochka yonma-yon tursin */
+@media (min-width: 1024px) {
+    .card {
+        /*
+        flex: 1 1 30%; - Bu qoida kartochkalarga konteynerning deyarli uchdan birini
+        egallashga (3ta yonma-yon turishi uchun) imkon beradi.
+        */
+        flex: 1 1 calc(33.333% - 20px);
+        max-width: 350px; /* Eng katta kenglikni belgilaymiz */
+    }
+
+    .card-container {
+        max-width: 1100px; /* Asosiy konteynerning maksimal kengligini cheklash */
+        margin: 0 auto; /* Katta ekranda markazga joylashtirish */
+    }
+}
+
+/* 3. JUDAYAM KICHIK EKRANLAR UCHUN (Masalan, 480px dan kichik smartfonlar) */
+/* Maqsad: Eng kichik ekranlarda to'liq kenglikni egallasin */
+@media (max-width: 480px) {
+    .card {
+        width: 100%; /* To'liq kenglik */
+        flex-basis: 100%; /* Barcha kenglikni oladi, ketma-ket joylashadi */
+    }
+}
