@@ -1,0 +1,28 @@
+><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel = "stylesheet" href="style.css"
+</head>
+<body>
+  <div class="10-dars">
+        <div class="image-box" id="imageBox">
+            <span class="placeholder-text" id="placeholder">Rasm bu yerda paydo bo'ladi</span>
+            <img id="myImage" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop" alt="Go'zal manzara">
+        </div>
+        <button onclick="showImage()">Rasmni Ko'rsatish</button>
+    </div>
+
+    <script>
+        function showImage() {
+            const img = document.getElementById('myImage');
+            const placeholder = document.getElementById('placeholder');
+            
+            placeholder.style.display = 'none';
+            img.classList.add('show');
+        }
+    </script>  
+</body>
+</html>
