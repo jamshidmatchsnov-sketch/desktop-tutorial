@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 Validatsiya</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="alert-container"></div>
+
+    <div class="form-container">
+        <form id="registerForm" onsubmit="return validatePasswords(event)" novalidate>
+
+            <input type="text" id="ism" name="ism" placeholder="ism" required>
+            <input type="text" id="familiya" name="familiya" placeholder="familiya" required>
+            <input type="email" id="email" name="email" placeholder="fdsa@gmail.com" required>
+            <input type="password" id="parol" name="parol" placeholder="***" required>
+            <input type="password" id="parol_takrorlang" name="parol_takrorlang" placeholder="***" required>
+
+            <button type="submit">Saqlash</button>
+
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
